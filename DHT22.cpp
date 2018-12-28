@@ -156,7 +156,7 @@ DHT22_ERROR_t DHT22::readData()
     retryCount = 0;
     do
     {
-      if (retryCount > 35) //(Spec is 50 us, 35*2 == 70 us)
+      if (retryCount > 70) //(Spec is 50 us, 35*2 == 70 us)
       {
         return DHT_ERROR_SYNC_TIMEOUT;
       }
@@ -167,7 +167,7 @@ DHT22_ERROR_t DHT22::readData()
     retryCount = 0;
     do
     {
-      if (retryCount > 50) //(Spec is 80 us, 50*2 == 100 us)
+      if (retryCount > 90) //(Spec is 80 us, 50*2 == 100 us)
       {
         return DHT_ERROR_DATA_TIMEOUT;
       }
@@ -185,21 +185,21 @@ DHT22_ERROR_t DHT22::readData()
   // Note: the bits are offset by one from the data sheet, not sure why
   for(i = 0; i < 16; i++)
   {
-    if(bitTimes[i + 1] > 11)
+    if(bitTimes[i + 1] > 20)
     {
       currentHumidity |= (1 << (15 - i));
     }
   }
   for(i = 0; i < 16; i++)
   {
-    if(bitTimes[i + 17] > 11)
+    if(bitTimes[i + 17] > 20)
     {
       currentTemperature |= (1 << (15 - i));
     }
   }
   for(i = 0; i < 8; i++)
   {
-    if(bitTimes[i + 33] > 11)
+    if(bitTimes[i + 33] > 20)
     {
       checkSum |= (1 << (7 - i));
     }
